@@ -18,7 +18,7 @@ export function sewershedsLayer({ palette = 'default' } = {}) {
   const p = PALETTES[palette] ?? PALETTES.default
   return new GeoJsonLayer({
     id: 'sewersheds',
-    data: '/data/sewershed.geojson',
+    data: 'data/sewershed.geojson',
     stroked: true,
     filled: p.fill != null,
     lineWidthUnits: 'pixels',

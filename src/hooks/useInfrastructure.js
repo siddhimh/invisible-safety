@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 
-const INTERCEPTORS_URL = '/data/interceptors_force_mains.geojson'
+const INTERCEPTORS_URL = 'data/interceptors_force_mains.geojson'
 const CONNECTION_M = 600
 const NEARBY_COMPLAINT_M = 250
 const NYC_LAT_RAD = (40.75 * Math.PI) / 180

@@ -4,7 +4,7 @@ import booleanPointInPolygon from '@turf/boolean-point-in-polygon'
 import area from '@turf/area'
 import bbox from '@turf/bbox'
 
-const INTERCEPTORS_URL = '/data/interceptors_force_mains.geojson'
+const INTERCEPTORS_URL = 'data/interceptors_force_mains.geojson'
 
 export function useProximityAnalysis({
   complaints = [],

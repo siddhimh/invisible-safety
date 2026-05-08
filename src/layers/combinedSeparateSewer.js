@@ -20,7 +20,7 @@ function getSewerType(feature) {
 export function combinedSeparateSewerLayer() {
   return new GeoJsonLayer({
     id: 'combined-separate-sewer',
-    data: '/data/combined_separate_sewer.geojson',
+    data: 'data/combined_separate_sewer.geojson',
     stroked: false,
     filled: true,
     getFillColor: (f) => {

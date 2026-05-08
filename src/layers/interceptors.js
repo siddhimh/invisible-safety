@@ -26,7 +26,7 @@ export function interceptorsLayer({
 } = {}) {
   const p = PALETTES[palette] ?? PALETTES.default
 
-  const dataProp = features ?? '/data/interceptors_force_mains.geojson'
+  const dataProp = features ?? 'data/interceptors_force_mains.geojson'
 
   const isInfra = palette === 'infrastructure' && Array.isArray(features)
 
