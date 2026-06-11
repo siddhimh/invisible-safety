@@ -1,0 +1,345 @@
+/* AR Storm Event Simulation — grounded civic-infrastructure styling.
+ * Dark asphalt, slate, muted stormwater blue, clay/orange warning
+ * accents, off-white labels. No neon, no glow. */
+
+.ar-storm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(18, 20, 24, 0.94);
+  color: #f2efe8;
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.ar-storm-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: transparent;
+}
+
+/* ── Splash (pre-session) ─────────────────────────────────────────── */
+
+.ar-storm-splash {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.ar-storm-card {
+  width: min(440px, 100%);
+  background: #1c2026;
+  color: #e9e6dd;
+  border-radius: 16px;
+  border: 1px solid rgba(242, 239, 232, 0.08);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  padding: 22px 22px 18px;
+}
+
+.ar-storm-kicker {
+  font-size: 10.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #7d97a8; /* muted stormwater blue */
+  margin-bottom: 8px;
+}
+
+.ar-storm-title {
+  margin: 0 0 10px 0;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: #f2efe8;
+}
+
+.ar-storm-sub {
+  margin: 0 0 16px 0;
+  font-size: 13px;
+  color: #aab2bb;
+  line-height: 1.5;
+}
+
+.ar-storm-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  color: #c4cad1;
+}
+.ar-storm-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.ar-storm-legend .sw {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  display: inline-block;
+}
+.ar-storm-legend .sw-basin { background: #3f6b86; }
+.ar-storm-legend .sw-pipe  { background: #6f9a93; }
+.ar-storm-legend .sw-cso   { background: #b5663a; border-radius: 50%; }
+.ar-storm-legend .sw-risk  { background: #a9663c; }
+
+.ar-storm-tip {
+  margin: 0 0 12px 0;
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: rgba(242, 239, 232, 0.04);
+  border: 1px solid rgba(242, 239, 232, 0.06);
+  color: #aab2bb;
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+.ar-storm-tip strong { color: #e9e6dd; font-weight: 600; }
+
+.ar-storm-disclaimer {
+  margin: 0 0 14px 0;
+  font-size: 11.5px;
+  font-style: italic;
+  color: #c98a5e; /* soft clay — signals "be careful, conceptual" */
+}
+
+.ar-storm-error {
+  margin: 0 0 12px 0;
+  padding: 9px 11px;
+  border-radius: 8px;
+  background: rgba(176, 84, 44, 0.14);
+  color: #e0a07e;
+  font-size: 12.5px;
+  line-height: 1.4;
+  border: 1px solid rgba(176, 84, 44, 0.3);
+}
+
+.ar-storm-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.ar-storm-start,
+.ar-storm-cancel {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 9px;
+  padding: 9px 16px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+.ar-storm-start {
+  background: #3f6b86; /* muted stormwater blue */
+  color: #f2efe8;
+  border-color: #4c7c98;
+}
+.ar-storm-start:hover:not(:disabled) { background: #4c7c98; }
+.ar-storm-start:disabled {
+  background: #3a3f46;
+  border-color: #3a3f46;
+  color: #6c727a;
+  cursor: not-allowed;
+}
+
+.ar-storm-cancel {
+  background: transparent;
+  color: #c4cad1;
+  border-color: rgba(242, 239, 232, 0.16);
+}
+.ar-storm-cancel:hover { background: rgba(242, 239, 232, 0.05); }
+
+/* ── Anchor info card (splash + in-session, matches the list card) ── */
+
+.ar-storm-anchor {
+  margin: 0 0 16px 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(242, 239, 232, 0.05);
+  border: 1px solid rgba(242, 239, 232, 0.1);
+  border-left: 3px solid #3f6b86; /* stormwater blue, like the pin */
+}
+
+.ar-storm-anchor-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f2efe8;
+  margin-bottom: 3px;
+}
+
+.ar-storm-anchor-stats {
+  font-size: 12px;
+  color: #c4cad1;
+}
+
+.ar-storm-anchor-receives {
+  font-size: 11.5px;
+  color: #8a939c;
+  margin-top: 2px;
+}
+
+/* Floating variant while the model is placed (top-left, image panel 1) */
+.ar-storm-anchor--session {
+  position: absolute;
+  top: calc(16px + env(safe-area-inset-top, 0px));
+  left: calc(16px + env(safe-area-inset-left, 0px));
+  margin: 0;
+  max-width: min(280px, calc(100% - 120px));
+  background: rgba(22, 26, 32, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+/* ── In-session: storm-intensity control (bottom centre) ──────────── */
+
+.ar-storm-intensity {
+  position: absolute;
+  bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(22, 26, 32, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(242, 239, 232, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  min-width: 248px;
+  max-width: calc(100% - 32px);
+}
+
+.ar-storm-intensity-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.ar-storm-intensity-label {
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #8a939c;
+}
+.ar-storm-intensity-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: #f2efe8;
+}
+
+.ar-storm-intensity-btns {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ar-storm-step {
+  font: inherit;
+  font-size: 20px;
+  line-height: 1;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #e9e6dd;
+  background: rgba(242, 239, 232, 0.06);
+  border: 1px solid rgba(242, 239, 232, 0.14);
+  transition: background-color 120ms ease;
+}
+.ar-storm-step:hover:not(:disabled) { background: rgba(242, 239, 232, 0.12); }
+.ar-storm-step:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.ar-storm-pips {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  justify-content: center;
+}
+.ar-storm-pip {
+  width: 34px;
+  height: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 0;
+  background: rgba(242, 239, 232, 0.1);
+  border: 1px solid rgba(242, 239, 232, 0.16);
+  transition: background-color 140ms ease, border-color 140ms ease;
+}
+.ar-storm-pip.is-filled {
+  background: #3f6b86; /* stormwater blue for rising intensity */
+  border-color: #5b88a3;
+}
+.ar-storm-pip.is-overflow.is-filled {
+  background: #c2622e; /* clay/orange only at overflow stress */
+  border-color: #d27a45;
+}
+
+.ar-storm-mini-disclaimer {
+  font-size: 10.5px;
+  font-style: italic;
+  color: #9aa2ab;
+  text-align: center;
+}
+
+/* ── Exit (top-right) ─────────────────────────────────────────────── */
+
+.ar-storm-exit {
+  position: absolute;
+  top: calc(16px + env(safe-area-inset-top, 0px));
+  right: calc(16px + env(safe-area-inset-right, 0px));
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #e9e6dd;
+  background: rgba(22, 26, 32, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(242, 239, 232, 0.16);
+  border-radius: 12px;
+  padding: 8px 14px;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+  transition: background-color 120ms ease;
+}
+.ar-storm-exit:hover { background: rgba(34, 38, 44, 0.92); }
+
+/* ── Placement hint (top centre) ──────────────────────────────────── */
+
+.ar-storm-hint {
+  position: absolute;
+  top: calc(16px + env(safe-area-inset-top, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 16px;
+  background: rgba(22, 26, 32, 0.82);
+  color: #f2efe8;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 999px;
+  border: 1px solid rgba(242, 239, 232, 0.12);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  max-width: calc(100% - 32px);
+  text-align: center;
+}
+
+@media (max-height: 520px) {
+  .ar-storm-intensity { padding: 9px 12px; min-width: 220px; }
+  .ar-storm-step { width: 34px; height: 34px; }
+}

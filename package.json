@@ -12,22 +12,11 @@
     "deploy": "gh-pages -d dist --no-history"
   },
   "dependencies": {
-    "@deck.gl/aggregation-layers": "^9.3.2",
-    "@deck.gl/geo-layers": "^9.3.2",
-    "@deck.gl/layers": "^9.3.2",
-    "@deck.gl/react": "^9.3.2",
-    "@turf/area": "^7.3.5",
-    "@turf/bbox": "^7.3.5",
-    "@turf/boolean-point-in-polygon": "^7.3.5",
-    "@turf/buffer": "^7.3.5",
-    "@turf/square-grid": "^7.3.5",
-    "deck.gl": "^9.3.2",
-    "mapbox-gl": "^3.23.0",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
-    "react-map-gl": "^8.1.1",
-    "three": "^0.169.0"
-  },
+  "react": "^19.2.5",
+  "react-dom": "^19.2.5",
+  "three": "^0.169.0",
+  "@turf/square-grid": "^7.2.0"
+},
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/react": "^19.2.14",
