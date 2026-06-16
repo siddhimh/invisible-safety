@@ -36,7 +36,7 @@ export function HotspotList({ hotspots, loading, error, onSelect }) {
         {error && (
           <div className="hotspot-error" role="alert">
             <span className="status-dot" aria-hidden="true" />
-            Failed to load: {error}
+            Failed to load city data. Please try again later.
           </div>
         )}
 

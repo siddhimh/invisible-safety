@@ -12,11 +12,13 @@
     "deploy": "gh-pages -d dist --no-history"
   },
   "dependencies": {
-  "react": "^19.2.5",
-  "react-dom": "^19.2.5",
-  "three": "^0.169.0",
-  "@turf/square-grid": "^7.2.0"
-},
+    "@turf/square-grid": "^7.2.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "three": "^0.169.0",
+    "troika-three-text": "^0.52.4",
+    "zustand": "^5.0.14"
+  },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/react": "^19.2.14",

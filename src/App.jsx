@@ -1,15 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles/App.css";
-import {UnsupportedScreen} from "./components/UnsupportedScreen";
+import { UnsupportedScreen } from "./components/UnsupportedScreen";
 import CONFIG from "./utils/config";
-// import {useUrbanRisk} from './hooks/useUrbanRisk';
-// import {useInterceptors} from './hooks/useInterceptors';
+import { useUrbanRisk } from "./hooks/useUrbanRisk";
+import { useInterceptors } from "./hooks/useInterceptors";
+import { useArHotspots } from "./hooks/useArHotspots";
+import { HotspotList } from "./components/HotspotList";
+import {hasValidPoint} from "./utils/dataUtils";
+import {ARPreview} from './ar/ARPreview';
 
-const {Datasets} = CONFIG;
+const RISK_WEIGHTS = { crime: 25, crash: 25, complaint: 25, infra: 25 };
+const { DATASETS } = CONFIG;
 
 function App() {
+  
   const [xrSupport, setXrSupport] = useState("checking");
-
+  const [datasets, setDatasets] = useState({});
+  const [dataStatus, setDataStatus] = useState({});
+  const [anchor, setAnchor] = useState(null);
+  
   useEffect(() => {
     if (new URLSearchParams(window.location.search).has("forceList")) {
       setXrSupport(true);
@@ -25,20 +34,77 @@ function App() {
       .catch(() => setXrSupport(false));
   }, []);
 
-  console.log("XR support:", xrSupport);
 
   useEffect(() => {
+    const controller = new AbortController();
 
+    async function loadDatasets() {
+      setDataStatus(
+        Object.fromEntries(DATASETS.map(({ key }) => [key, "loading"])),
+      );
 
-sd
+      const results = await Promise.allSettled(
+        DATASETS.map(async ({ key, url }) => {
+          const response = await fetch(url, {
+            signal: controller.signal,
+          });
 
+          if (!response.ok) {
+            throw new Error(`Failed to load ${key}`);
+          }
 
-    Datasets.forEach(({id, url})=>{
+          const geo = await response.json();
 
-    })
+          const features = Array.isArray(geo.features)
+            ? geo.features.filter(hasValidPoint)
+            : [];
+
+          return { key, features };
+        }),
+      );
+
+      const nextDatasets = {};
+      const nextStatus = {};
+
+      results.forEach((result, index) => {
+        const key = DATASETS[index].key;
+
+        if (result.status === "fulfilled") {
+          nextDatasets[key] = result.value.features;
+          nextStatus[key] = "loaded";
+        } else {
+          nextDatasets[key] = [];
+          nextStatus[key] = "error";
+        }
+      });
+
+      setDatasets(nextDatasets);
+      setDataStatus(nextStatus);
+    }
+
+    loadDatasets();
+
+    return () => {
+      controller.abort();
+    };
   }, []);
 
+  const enabled = xrSupport === true;
 
+  const { featureCollection: riskGeoJson } = useUrbanRisk({
+    crime: datasets.crime,
+    collisions: datasets.collisions,
+    complaints: datasets.complaints,
+    csoFeatures: datasets.cso,
+    weights: RISK_WEIGHTS,
+    enabled,
+  });
+  const { interceptorFeatures } = useInterceptors({ enabled });
+  const { hotspots, ready } = useArHotspots({
+    csoFeatures: datasets.cso,
+    complaints: datasets.complaints,
+    riskGeoJson,
+  });
 
 
   if (xrSupport === "checking") {
@@ -53,6 +119,23 @@ sd
   }
   return (
     <div className="app-shell">
+      <HotspotList
+        hotspots={hotspots}
+        loading={!ready}
+        error={Object.values(dataStatus).includes("error")}
+        onSelect={(h) =>
+          setAnchor({ object: h.feature, hotspot: h, layerId: "cso-locations" })
+        }
+      />
+      <ARPreview
+        open={!!anchor}
+        onClose={() => setAnchor(null)}
+        selectedFeature={anchor}
+        riskGeoJson={riskGeoJson}
+        interceptorFeatures={interceptorFeatures}
+        complaints={datasets.complaints}
+        csoFeatures={datasets.cso}
+      />
       <h1>Invisible Safety AR</h1>
     </div>
   );
